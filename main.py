@@ -1,11 +1,11 @@
-# main.py (TASK 1 CHECK)
+# main.py (TASK 1 + 2 )
 from intensity import Intensity
 from syrup_type import SyrupType
 from coffee import Coffee, WaterBasedCoffee, MilkBasedCoffee, SpiceCoffee, SyrupCoffee 
 
 def run_task_1():
     """Instantiates different coffee objects to demonstrate the class hierarchy."""
-    print("--- Laboratory 5, Task 1: Hierarchy and Field Check ---")
+    print("--- Laboratory 5, Task 1 & 2: Hierarchy and Method Overriding Check ---")
     
     basic_coffee = Coffee(name="Black Coffee", intensity=Intensity.LIGHT)
     basic_coffee.print_coffee_details()
