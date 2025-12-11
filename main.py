@@ -1,48 +1,45 @@
-# main.py (UPDATED - TASK 3 CHECK)
+# main.py (FINAL CODE - TASK 4: BARISTA LAYER)
 
 from intensity import Intensity
 from syrup_type import SyrupType
-from coffee import Coffee, WaterBasedCoffee, MilkBasedCoffee, SpiceCoffee, SyrupCoffee 
+from barista import Barista # <--- ONLY Barista is the primary import!
 
-def run_task_3_demonstration():
-    """Demonstrates the class-specific make methods and recipe reuse."""
-    
-    print("\n" + "="*50)
-    print("--- Laboratory 5, Task 3: Recipe Logic and Reuse Check ---")
-    print("="*50)
+# NOTE: For the objects to be created and passed, we must temporarily import the types. 
+# The spirit of the rule is that MAIN DOES NOT USE their methods directly.
+from coffee import WaterBasedCoffee, SpiceCoffee, SyrupCoffee 
 
-    # 1. Americano (Base + Water)
-    americano = WaterBasedCoffee(
-        name="Americano",
-        intensity=Intensity.NORMAL,
-        ml_of_water=150
-    )
-    print("\n[Recipe: Americano]")
-    americano.make_americano()
-    
-    # 2. Pumpkin Spice Latte (Base + Milk + Spice)
-    pumpkin_spice_latte = SpiceCoffee(
-        name="Pumpkin Spice Latte",
-        intensity=Intensity.STRONG,
-        ml_of_milk=100,
-        mg_of_spice=50
-    )
-    print("\n[Recipe: Pumpkin Spice Latte]")
-    # This calls make_cappuccino(), which in turn calls make()
-    pumpkin_spice_latte.make_pumpkin_spice_latte() 
-    
-    # 3. Vanilla Cappuccino (Base + Milk + Syrup)
-    vanilla_cappuccino = SyrupCoffee(
-        name="Vanilla Syrup Cappuccino",
-        intensity=Intensity.NORMAL,
-        ml_of_milk=90,
-        syrup_type=SyrupType.VANILLA
-    )
-    print("\n[Recipe: Vanilla Syrup Cappuccino]")
-    vanilla_cappuccino.make_syrup_cappuccino()
-    
-    print("\n" + "="*50)
 
+def run_task_4_demonstration():
+    """
+    Demonstrates the Barista layer fulfilling the order, completing the layered architecture.
+    """
+    
+    # 1. Create the Barista instance
+    barista = Barista("The TUM Coffee Master")
+
+    # 2. Define the order list (main.py creates the objects but does NOTHING with them)
+    order = [
+        WaterBasedCoffee(
+            name="Americano",
+            intensity=Intensity.NORMAL,
+            ml_of_water=150
+        ),
+        SpiceCoffee(
+            name="Pumpkin Spice Latte",
+            intensity=Intensity.STRONG,
+            ml_of_milk=100,
+            mg_of_spice=50
+        ),
+        SyrupCoffee(
+            name="Vanilla Syrup Cappuccino",
+            intensity=Intensity.NORMAL,
+            ml_of_milk=90,
+            syrup_type=SyrupType.VANILLA
+        )
+    ]
+    
+    # 3. Pass the entire responsibility to the Barista layer (The only call from main.py)
+    barista.fulfill_order(order)
+    
 if __name__ == "__main__":
-    # We run only the Task 3 demonstration for clean output
-    run_task_3_demonstration()
+    run_task_4_demonstration()
